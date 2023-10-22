@@ -1,11 +1,11 @@
 const cardContainer = document.querySelector('.places__list');
 
-function addCard(cardData, deleteCallback) {
-  const newCard = createCard(cardData, deleteCallback);
+function addCard(cardData, сallbackForRemove) {
+  const newCard = createCard(cardData, сallbackForRemove);
   cardContainer.append(newCard);
 }
 
-function createCard(cardData, deleteCallback) {
+function createCard(cardData, сallbackForRemove) {
   const cardTemplate = document.querySelector('#card-template').content;
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
 
@@ -13,7 +13,7 @@ function createCard(cardData, deleteCallback) {
   newCard.querySelector('.card__image').src = cardData.link;
   newCard.querySelector('.card__image').alt = cardData.name;
   newCard.querySelector('.card__delete-button').addEventListener('click', (evt) => {
-    deleteCallback(evt);
+    сallbackForRemove(evt);
   });
 
   return newCard;
