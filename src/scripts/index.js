@@ -7,7 +7,7 @@ import { openModal, closeModal, closeModalOnBackdropClick } from './modal.js';
 
 const cardContainer = document.querySelector('.places__list');
 
-const popus = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 const buttonsClosePopups = document.querySelectorAll('.popup__close');
 
 const profileEditPopup = document.querySelector('.popup_type_edit');
@@ -64,11 +64,11 @@ function addNewCard(evt) {
   addNewCardForm.reset();
 }
 
-function showImage(cardImageSrc, cardTitle) {
+function showImage(cardData) {
   openModal(showImagePopup);
-  popupImage.src = cardImageSrc;
-  popupImage.alt = cardTitle;
-  popupImageCaption.textContent = cardTitle;
+  popupImage.src = cardData.link;
+  popupImage.alt = cardData.name;
+  popupImageCaption.textContent = cardData.name;
 }
 
 initialCards.forEach((item) => {
@@ -82,7 +82,7 @@ buttonsClosePopups.forEach((item) => {
   });
 });
 
-popus.forEach((item) => {
+popups.forEach((item) => {
   item.addEventListener('click', (evt) => {
     closeModalOnBackdropClick(evt, item);
   });
