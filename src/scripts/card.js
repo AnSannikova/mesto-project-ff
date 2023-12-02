@@ -1,6 +1,6 @@
 import { putLike, deleteLike } from "./api";
 
-export const createCard = (cardData, userData, сallbackForRemove, сallbackForLike, сallbackForShowImage) => {
+export const createCard = (cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage) => {
   const cardTemplate = document.querySelector('#card-template').content;
   const newCard = cardTemplate.cloneNode(true);
 
@@ -13,13 +13,13 @@ export const createCard = (cardData, userData, сallbackForRemove, сallbackForL
     newCard.querySelector('.card__like-count').classList.add('card__like-count_is-active');
 
     for (const ownerLike of cardData.likes) {
-      if (ownerLike['_id'] === userData['_id']) {
+      if (ownerLike['_id'] === userDataId) {
         newCard.querySelector('.card__like-button').classList.add('card__like-button_is-active');
       }
     }
   }
 
-  if (cardData.owner['_id'] !== userData['_id']) {
+  if (cardData.owner['_id'] !== userDataId) {
     newCard.querySelector('.card__delete-button').classList.add('card__delete-button_hidden');
   }
 

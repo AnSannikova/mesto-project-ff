@@ -45,8 +45,8 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
-const renderCard = (cardData, userData, сallbackForRemove, сallbackForLike, сallbackForShowImage) => {
-  const newCard = createCard(cardData, userData, сallbackForRemove, сallbackForLike, сallbackForShowImage);
+const renderCard = (cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage) => {
+  const newCard = createCard(cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage);
   cardContainer.append(newCard);
 }
 
@@ -109,7 +109,7 @@ const addNewCard = (evt) => {
   Promise.all([getUserData(), sendNewCard(cardData)])
     .then((result) => {
       const [userData, card] = result;
-      const newCard = createCard(card, userData, removeCard, likeCard, showImage);
+      const newCard = createCard(card, userData['_id'], removeCard, likeCard, showImage);
       cardContainer.prepend(newCard);
       closeModal(addNewCardPopup);
       addNewCardForm.reset();
@@ -159,7 +159,7 @@ Promise.all([getUserData(), getInitialCards()])
   .then((results) => {
     const [userData, initialCards] = results;
     initialCards.forEach((card) => {
-      renderCard(card, userData, removeCard, likeCard, showImage);
+      renderCard(card, userData['_id'], removeCard, likeCard, showImage);
     });
   })
   .catch((err) => {
