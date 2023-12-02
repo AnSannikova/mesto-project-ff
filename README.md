@@ -1,4 +1,4 @@
 # Mesto  
 
 Проект "Mesto"  
-https://github.com/AnSannikova/mesto-project-ff
+https://ansannikova.github.io/mesto-project-ff/
