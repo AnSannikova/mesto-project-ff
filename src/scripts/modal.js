@@ -1,21 +1,21 @@
-function openModal(popup) {
+const openModal = (popup) => {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closeModalOnEscPress);
 }
 
-function closeModal(popup) {
+const closeModal = (popup) => {
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeModalOnEscPress);
 }
 
-function closeModalOnEscPress(evt) {
+const closeModalOnEscPress = (evt) => {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_is-opened');
     closeModal(openedPopup);
   }
 }
 
-function closeModalOnBackdropClick(evt, popup) {
+const closeModalOnBackdropClick = (evt, popup) => {
   if (evt.currentTarget === evt.target) closeModal(popup);
 }
 
