@@ -85,7 +85,6 @@ const handleAddNewCardFormSubmit = (evt) => {
         const newCard = createCard(cardData, userId, removeCard, likeCard, showImage);
         cardContainer.prepend(newCard);
         closeModal(addNewCardPopup);
-        addNewCardForm.reset();
         clearValidation(addNewCardForm, validationConfig);
       })
   }
@@ -103,11 +102,10 @@ const showImage = (cardData) => {
 Promise.all([getUserData(), getInitialCards()])
   .then((results) => {
     const [userData, initialCards] = results;
-
+    userId = userData['_id'];
     userName.textContent = userData.name;
     userDescription.textContent = userData.about;
     userAvatar.setAttribute('style', `background-image: url(${userData.avatar});`);
-    userId = userData['_id'];
 
     initialCards.forEach((card) => {
       renderCard(card, userId, removeCard, likeCard, showImage);
