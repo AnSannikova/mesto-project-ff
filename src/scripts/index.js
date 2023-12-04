@@ -1,13 +1,14 @@
 import '../pages/index.css';
 
-import { createCard, removeCard, likeCard } from './card.js';
+import { createCard, likeCard } from './card.js';
 import { openModal, closeModal, closeModalOnBackdropClick } from './modal.js';
 import { enableValidation, clearValidation } from './validation.js';
-import { getUserData, changeUserData, getInitialCards, sendNewCard, changeUserAvatar, checkImageUrl } from './api.js';
+import { getUserData, changeUserData, getInitialCards, sendNewCard, deleteCurrentCard, changeUserAvatar, checkImageUrl } from './api.js';
 import { handleSubmit } from '../utils/utils.js';
-import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, validationConfig } from './constants.js'
+import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, deleteCardPopup, deleteCardButton, validationConfig } from './constants.js'
 
 let userId;
+let cardDataToDelete;
 
 const renderCard = ({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage }) => {
   const newCard = createCard({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage });
@@ -45,12 +46,12 @@ const handleAddNewCardFormSubmit = (evt) => {
     return sendNewCard(cardNameInput.value, cardlinkInput.value)
       .then((cardData) => {
         const newCard = createCard({
-            cardData: cardData, 
-            userDataId: userId, 
-            сallbackForRemove: removeCard, 
-            сallbackForLike: likeCard, 
-            сallbackForShowImage: showImage 
-          });
+          cardData: cardData,
+          userDataId: userId,
+          сallbackForRemove: removeCard,
+          сallbackForLike: likeCard,
+          сallbackForShowImage: showImage
+        });
         cardContainer.prepend(newCard);
         closeModal(addNewCardPopup);
       })
@@ -58,6 +59,23 @@ const handleAddNewCardFormSubmit = (evt) => {
 
   handleSubmit(makeRequest, evt);
 }
+
+const removeCard = (evt, cardData) => {
+  cardDataToDelete = [evt.target.closest('.card'), cardData['_id']];
+  openModal(deleteCardPopup);
+}
+
+const handleDeleteCardButtonClick = () => {
+  closeModal(deleteCardPopup);
+  const [currentCard, cardId] = cardDataToDelete;
+  deleteCurrentCard(cardId)
+    .then(() => {
+      currentCard.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 const showImage = (cardData) => {
   openModal(showImagePopup);
@@ -76,11 +94,11 @@ Promise.all([getUserData(), getInitialCards()])
 
     initialCards.forEach((card) => {
       renderCard({
-        cardData: card, 
-        userDataId: userId, 
-        сallbackForRemove: removeCard, 
-        сallbackForLike: likeCard, 
-        сallbackForShowImage: showImage 
+        cardData: card,
+        userDataId: userId,
+        сallbackForRemove: removeCard,
+        сallbackForLike: likeCard,
+        сallbackForShowImage: showImage
       });
     });
   })
@@ -115,6 +133,8 @@ addNewCardButton.addEventListener('click', () => {
 });
 
 addNewCardForm.addEventListener('submit', handleAddNewCardFormSubmit);
+
+deleteCardButton.addEventListener('click', handleDeleteCardButtonClick);
 
 userAvatar.addEventListener('click', () => {
   openModal(changeAvatarPopup);

@@ -1,4 +1,4 @@
-import { deleteCurrentCard, putLike, deleteLike } from "./api";
+import { putLike, deleteLike } from "./api";
 
 export const createCard = ({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage }) => {
   const cardTemplate = document.querySelector('#card-template').content;
@@ -38,16 +38,6 @@ export const createCard = ({ cardData, userDataId, сallbackForRemove, сallback
   });
 
   return newCard;
-}
-
-export const removeCard = (evt, cardData) => {
-  deleteCurrentCard(cardData['_id'])
-    .then(() => {
-      evt.target.closest('.card').remove();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 }
 
 export const likeCard = (evt, cardData) => {

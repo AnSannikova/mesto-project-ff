@@ -27,6 +27,9 @@ export const showImagePopup = document.querySelector('.popup_type_image');
 export const popupImage = document.querySelector('.popup__image')
 export const popupImageCaption = document.querySelector('.popup__caption');
 
+export const deleteCardPopup = document.querySelector('.popup_type_delete-card');
+export const deleteCardButton = deleteCardPopup.querySelector('.popup__button');
+
 export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
