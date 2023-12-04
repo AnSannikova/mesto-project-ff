@@ -1,6 +1,6 @@
 import { deleteCurrentCard, putLike, deleteLike } from "./api";
 
-export const createCard = (cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage) => {
+export const createCard = ({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage }) => {
   const cardTemplate = document.querySelector('#card-template').content;
   const newCard = cardTemplate.cloneNode(true);
   const newCardImage = newCard.querySelector('.card__image');
