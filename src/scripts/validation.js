@@ -57,7 +57,7 @@ const setEventListeners = (formElement, formData) => {
   toggleButtonState(inputList, buttonElement, formData);
 
   formElement.addEventListener('reset', () => {
-    disableButton(buttonElement, formData);
+    if (inputList.length) disableButton(buttonElement, formData);
   });
 
   inputList.forEach((inputElement) => {
@@ -72,7 +72,7 @@ const enableValidation = (formData) => {
   const formList = Array.from(document.querySelectorAll(formData.formSelector));
 
   formList.forEach((formElement) => {
-		formElement.addEventListener('submit', (evt) => {
+    formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
     setEventListeners(formElement, formData);
@@ -82,7 +82,7 @@ const enableValidation = (formData) => {
 const clearValidation = (formElement, formData) => {
   const inputList = Array.from(formElement.querySelectorAll(formData.inputSelector));
   const buttonElement = formElement.querySelector(formData.submitButtonSelector);
-  
+
   toggleButtonState(inputList, buttonElement, formData);
 
   inputList.forEach((inputElement) => {

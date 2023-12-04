@@ -67,7 +67,7 @@ export const sendNewCard = (cardName, cardLink) => {
   });
 }
 
-export const deleteCurrentCard = (cardId) => {
+export const removeCurrentCard = (cardId) => {
   return request(`cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers

@@ -13,7 +13,7 @@ const renderLoading = (isLoading, button, buttonText = 'Сохранить', loa
   }
 }
 
-export const handleSubmit = (request, evt, loadingText = "Сохранение...") => {
+export const handleSubmit = (request, evt, loadingText = 'Сохранение...') => {
   evt.preventDefault();
   const submitButton = evt.submitter;
   const initialText = submitButton.textContent;

@@ -3,12 +3,12 @@ import '../pages/index.css';
 import { createCard, likeCard } from './card.js';
 import { openModal, closeModal, closeModalOnBackdropClick } from './modal.js';
 import { enableValidation, clearValidation } from './validation.js';
-import { getUserData, changeUserData, getInitialCards, sendNewCard, deleteCurrentCard, changeUserAvatar, checkImageUrl } from './api.js';
+import { getUserData, changeUserData, getInitialCards, sendNewCard, removeCurrentCard, changeUserAvatar, checkImageUrl } from './api.js';
 import { handleSubmit } from '../utils/utils.js';
-import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, deleteCardPopup, deleteCardButton, validationConfig } from './constants.js'
+import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, removeCardPopup, removeCardForm, validationConfig } from './constants.js'
 
 let userId;
-let cardDataToDelete;
+let cardDataForRemove;
 
 const renderCard = ({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage }) => {
   const newCard = createCard({ cardData, userDataId, сallbackForRemove, сallbackForLike, сallbackForShowImage });
@@ -61,20 +61,21 @@ const handleAddNewCardFormSubmit = (evt) => {
 }
 
 const removeCard = (evt, cardData) => {
-  cardDataToDelete = [evt.target.closest('.card'), cardData['_id']];
-  openModal(deleteCardPopup);
+  cardDataForRemove = [evt.target.closest('.card'), cardData['_id']];
+  openModal(removeCardPopup);
 }
 
-const handleDeleteCardButtonClick = () => {
-  closeModal(deleteCardPopup);
-  const [currentCard, cardId] = cardDataToDelete;
-  deleteCurrentCard(cardId)
-    .then(() => {
-      currentCard.remove();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const handleRemoveCardFormSubmit = (evt) => {
+  const [currentCard, cardId] = cardDataForRemove;
+  const makeRequest = () => {
+    return removeCurrentCard(cardId)
+      .then(() => {
+        closeModal(removeCardPopup);
+        currentCard.remove();
+      })
+  }
+
+  handleSubmit(makeRequest, evt, 'Удаление...');
 };
 
 const showImage = (cardData) => {
@@ -134,7 +135,7 @@ addNewCardButton.addEventListener('click', () => {
 
 addNewCardForm.addEventListener('submit', handleAddNewCardFormSubmit);
 
-deleteCardButton.addEventListener('click', handleDeleteCardButtonClick);
+removeCardForm.addEventListener('submit', handleRemoveCardFormSubmit);
 
 userAvatar.addEventListener('click', () => {
   openModal(changeAvatarPopup);
