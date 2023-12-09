@@ -26,6 +26,8 @@ export const cardlinkInput = addNewCardForm.elements.link;
 export const showImagePopup = document.querySelector('.popup_type_image');
 export const popupImage = document.querySelector('.popup__image')
 export const popupImageCaption = document.querySelector('.popup__caption');
+export const popupAvatar = document.querySelector('.popup__avatar');
+export const popupOwnerName = document.querySelector('.popup__owner-name');
 
 export const removeCardPopup = document.querySelector('.popup_type_delete-card');
 export const removeCardForm = document.forms['remove-card'];

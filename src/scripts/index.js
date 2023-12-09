@@ -5,7 +5,7 @@ import { openModal, closeModal, closeModalOnBackdropClick } from './modal.js';
 import { enableValidation, clearValidation } from './validation.js';
 import { getUserData, changeUserData, getInitialCards, sendNewCard, removeCurrentCard, changeUserAvatar, checkImageUrl } from './api.js';
 import { handleSubmit } from '../utils/utils.js';
-import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, removeCardPopup, removeCardForm, validationConfig } from './constants.js'
+import { cardContainer, userName, userDescription, userAvatar, popups, buttonsClosePopups, profileEditPopup, profileEditButton, profileEditForm, nameInput, descriptionInput, changeAvatarPopup, changeAvatarForm, changeAvatarInput, addNewCardPopup, addNewCardButton, addNewCardForm, cardNameInput, cardlinkInput, showImagePopup, popupImage, popupImageCaption, popupAvatar, popupOwnerName, removeCardPopup, removeCardForm, validationConfig } from './constants.js'
 
 let userId;
 let cardDataForRemove;
@@ -79,10 +79,26 @@ const handleRemoveCardFormSubmit = (evt) => {
 };
 
 const showImage = (cardData) => {
-  openModal(showImagePopup);
   popupImage.src = cardData.link;
   popupImage.alt = cardData.name;
   popupImageCaption.textContent = cardData.name;
+  popupAvatar.src = cardData.owner.avatar;
+  popupAvatar.alt = cardData.owner.name;
+  popupOwnerName.textContent = cardData.owner.name;
+  openModal(showImagePopup);
+}
+
+const clearShowImagePopup = () => {
+  popupImage.src = '';
+  popupImage.alt = '';
+  popupImageCaption.textContent = '';
+  popupAvatar.src = '';
+  popupAvatar.alt = '';
+  popupOwnerName.textContent = '';
+}
+
+export const checkPopup = (popup) => {
+  if (popup.classList.contains('popup_type_image')) clearShowImagePopup();
 }
 
 Promise.all([getUserData(), getInitialCards()])
@@ -110,12 +126,14 @@ Promise.all([getUserData(), getInitialCards()])
 buttonsClosePopups.forEach((item) => {
   item.addEventListener('click', (evt) => {
     const openedPopup = evt.target.closest('.popup');
+    checkPopup(openedPopup);
     closeModal(openedPopup);
   });
 });
 
 popups.forEach((item) => {
   item.addEventListener('click', (evt) => {
+    checkPopup(evt.target);
     closeModalOnBackdropClick(evt, item);
   });
 });

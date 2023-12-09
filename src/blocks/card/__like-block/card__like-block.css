@@ -1,8 +1,7 @@
 .card__like-block {
-  min-height: 37px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 5px;
 }

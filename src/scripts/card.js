@@ -7,6 +7,7 @@ export const createCard = ({ cardData, userDataId, сallbackForRemove, сallback
   const newCardLikeCount = newCard.querySelector('.card__like-count');
   const newCardLikeButton = newCard.querySelector('.card__like-button');
   const newCardDeleteButton = newCard.querySelector('.card__delete-button');
+  const newCardOwnerName = newCard.querySelector('.card__owner');
 
   newCard.querySelector('.card__title').textContent = cardData.name;
   newCardImage.src = cardData.link;
@@ -26,6 +27,8 @@ export const createCard = ({ cardData, userDataId, сallbackForRemove, сallback
   if (cardData.owner['_id'] !== userDataId) {
     newCardDeleteButton.classList.add('card__delete-button_hidden');
   }
+
+  newCardOwnerName.textContent = cardData.owner.name;
 
   newCardImage.addEventListener('click', () => {
     сallbackForShowImage(cardData);

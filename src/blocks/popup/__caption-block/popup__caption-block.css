@@ -1,0 +1,9 @@
+.popup__caption-block {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  column-gap: 15px;
+  align-items: center;
+}
