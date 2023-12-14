@@ -1,17 +1,22 @@
-export const checkResponse = (res) => {
+export const checkResponse = res => {
   if (res.ok) {
-    return res.json()
+    return res.json();
   }
   return Promise.reject(`Ошибка: ${res.status}`);
-}
+};
 
-const renderLoading = (isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') => {
+const renderLoading = (
+  isLoading,
+  button,
+  buttonText = 'Сохранить',
+  loadingText = 'Сохранение...',
+) => {
   if (isLoading) {
-    button.textContent = loadingText
+    button.textContent = loadingText;
   } else {
-    button.textContent = buttonText
+    button.textContent = buttonText;
   }
-}
+};
 
 export const handleSubmit = (request, evt, loadingText = 'Сохранение...') => {
   evt.preventDefault();
@@ -23,10 +28,10 @@ export const handleSubmit = (request, evt, loadingText = 'Сохранение..
     .then(() => {
       evt.target.reset();
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(`Ошибка: ${err}`);
     })
     .finally(() => {
       renderLoading(false, submitButton, initialText);
     });
-}
+};
