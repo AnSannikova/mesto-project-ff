@@ -27,7 +27,6 @@
     height: 50px;
   }
 }
-
 @media screen and (max-width: 480px) {
 
   .profile__add-button {
