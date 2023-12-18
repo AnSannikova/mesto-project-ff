@@ -9,14 +9,14 @@ export const buttonsClosePopups = document.querySelectorAll('.popup__close');
 
 export const profileEditPopup = document.querySelector('.popup_type_edit');
 export const profileEditButton = document.querySelector(
-  '.profile__edit-button',
+  '.profile__edit-button'
 );
 export const profileEditForm = document.forms['edit-profile'];
 export const nameInput = profileEditForm.elements.name;
 export const descriptionInput = profileEditForm.elements.description;
 
 export const changeAvatarPopup = document.querySelector(
-  '.popup_type_change-avatar',
+  '.popup_type_change-avatar'
 );
 export const changeAvatarForm = document.forms['new-avatar'];
 export const changeAvatarInput = changeAvatarForm.elements.link;
@@ -34,7 +34,7 @@ export const popupAvatar = document.querySelector('.popup__avatar');
 export const popupOwnerName = document.querySelector('.popup__owner-name');
 
 export const removeCardPopup = document.querySelector(
-  '.popup_type_delete-card',
+  '.popup_type_delete-card'
 );
 export const removeCardForm = document.forms['remove-card'];
 

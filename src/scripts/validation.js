@@ -1,3 +1,5 @@
+import { renderError } from '../utils/utils.js'
+
 const showInputError = (formElement, inputElement, errorMessage, formData) => {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
   inputElement.classList.add(formData.inputErrorClass);
@@ -24,7 +26,7 @@ const isValid = (formElement, inputElement, formData) => {
       formElement,
       inputElement,
       inputElement.validationMessage,
-      formData,
+      formData
     );
   } else {
     hideInputError(formElement, inputElement, formData);
@@ -57,10 +59,10 @@ const toggleButtonState = (inputList, buttonElement, formData) => {
 
 const setEventListeners = (formElement, formData) => {
   const inputList = Array.from(
-    formElement.querySelectorAll(formData.inputSelector),
+    formElement.querySelectorAll(formData.inputSelector)
   );
   const buttonElement = formElement.querySelector(
-    formData.submitButtonSelector,
+    formData.submitButtonSelector
   );
 
   toggleButtonState(inputList, buttonElement, formData);
@@ -72,6 +74,7 @@ const setEventListeners = (formElement, formData) => {
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, formData);
+      renderError(false, buttonElement);
       toggleButtonState(inputList, buttonElement, formData);
     });
   });
@@ -90,10 +93,10 @@ const enableValidation = formData => {
 
 const clearValidation = (formElement, formData) => {
   const inputList = Array.from(
-    formElement.querySelectorAll(formData.inputSelector),
+    formElement.querySelectorAll(formData.inputSelector)
   );
   const buttonElement = formElement.querySelector(
-    formData.submitButtonSelector,
+    formData.submitButtonSelector
   );
 
   toggleButtonState(inputList, buttonElement, formData);

@@ -10,6 +10,7 @@
   color: #fff;
   display: flex;
   align-items: center;
+  column-gap: 29px;
   padding: 36px 0;
 }
 

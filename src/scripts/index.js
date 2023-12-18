@@ -97,19 +97,20 @@ const handleChangeAvatarFormSubmit = evt => {
 
 const handleAddNewCardFormSubmit = evt => {
   const makeRequest = () => {
-    return sendNewCard(cardNameInput.value, cardlinkInput.value).then(
-      cardData => {
-        const newCard = createCard({
-          cardData: cardData,
-          userDataId: userId,
-          сallbackForRemove: removeCard,
-          сallbackForLike: likeCard,
-          сallbackForShowImage: showImage,
-        });
-        cardContainer.prepend(newCard);
-        closeModal(addNewCardPopup);
-      },
-    );
+    return Promise.all([
+      checkImageUrl(cardlinkInput.value),
+      sendNewCard(cardNameInput.value, cardlinkInput.value),
+    ]).then(cardData => {
+      const newCard = createCard({
+        cardData: cardData,
+        userDataId: userId,
+        сallbackForRemove: removeCard,
+        сallbackForLike: likeCard,
+        сallbackForShowImage: showImage,
+      });
+      cardContainer.prepend(newCard);
+      closeModal(addNewCardPopup);
+    });
   };
 
   handleSubmit(makeRequest, evt);
@@ -152,6 +153,17 @@ Promise.all([getUserData(), getInitialCards()])
       'style',
       `background-image: url(${userData.avatar});`,
     );
+
+    // for (const card of initialCards) {
+    //   if (card.owner['_id'] === 'c14db00d8429e8eaefcd27f6') continue;
+    //   renderCard({
+    //     cardData: card,
+    //     userDataId: userId,
+    //     сallbackForRemove: removeCard,
+    //     сallbackForLike: likeCard,
+    //     сallbackForShowImage: showImage,
+    //   });
+    // }
 
     initialCards.forEach(card => {
       renderCard({
