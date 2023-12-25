@@ -4,6 +4,12 @@
   "description": "Проект \"Mesto\"  \r https://github.com/AnSannikova/mesto-project-ff",
   "main": "index.js",
   "scripts": {
+    "check": "prettier --check ./**/*.{html,css,js}",
+    "format": "prettier --write ./**/*.{html,css,js}",
+    "lint": "stylelint **/*.css",
+    "lintfix": "stylelint **/*.css --fix",
+    "checkAll": "npm run check && npm run lint",
+    "fixAll": "npm run format && npm run lintfix",
     "build": "webpack --mode production",
     "dev": "webpack serve",
     "predeploy": "npm run build",
@@ -23,6 +29,8 @@
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.3",
+    "prettier": "^3.1.1",
+    "stylelint": "^16.0.2",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"

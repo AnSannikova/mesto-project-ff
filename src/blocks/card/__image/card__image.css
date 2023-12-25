@@ -1,7 +1,8 @@
 .card__image {
-  height: 282px;
+  height: 290px;
   object-fit: cover;
   width: 100%;
+  display: block;
 }
 
 .card__image:hover {

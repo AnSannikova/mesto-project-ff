@@ -1,15 +1,34 @@
-export const checkResponse = (res) => {
+export const checkResponse = res => {
   if (res.ok) {
-    return res.json()
+    return res.json();
   }
   return Promise.reject(`Ошибка: ${res.status}`);
-}
+};
 
-const renderLoading = (isLoading, button, buttonText = 'Сохранить', loadingText = 'Сохранение...') => {
+const renderLoading = (
+  isLoading,
+  button,
+  buttonText = 'Сохранить',
+  loadingText = 'Сохранение...'
+) => {
   if (isLoading) {
-    button.textContent = loadingText
+    button.textContent = loadingText;
   } else {
-    button.textContent = buttonText
+    button.textContent = buttonText;
+  }
+};
+
+export const renderError = (
+  isError, 
+  button, 
+  buttonText = 'Сохранить', 
+  erorText = 'Ошибка загрузки'
+) => {
+  if (isError) {
+    console.log(erorText);
+    button.textContent = erorText;
+  } else {
+    button.textContent = buttonText;
   }
 }
 
@@ -22,11 +41,10 @@ export const handleSubmit = (request, evt, loadingText = 'Сохранение..
   request()
     .then(() => {
       evt.target.reset();
-    })
-    .catch((err) => {
-      console.error(`Ошибка: ${err}`);
-    })
-    .finally(() => {
       renderLoading(false, submitButton, initialText);
+    })
+    .catch(err => {
+      renderError(true, submitButton, initialText);
+      console.error(`Ошибка: ${err}`);
     });
-}
+};
