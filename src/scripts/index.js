@@ -154,17 +154,6 @@ Promise.all([getUserData(), getInitialCards()])
       `background-image: url(${userData.avatar});`,
     );
 
-    // for (const card of initialCards) {
-    //   if (card.owner['_id'] === 'c14db00d8429e8eaefcd27f6') continue;
-    //   renderCard({
-    //     cardData: card,
-    //     userDataId: userId,
-    //     сallbackForRemove: removeCard,
-    //     сallbackForLike: likeCard,
-    //     сallbackForShowImage: showImage,
-    //   });
-    // }
-
     initialCards.forEach(card => {
       renderCard({
         cardData: card,
@@ -187,7 +176,7 @@ buttonsClosePopups.forEach(item => {
 });
 
 popups.forEach(item => {
-  item.addEventListener('click', evt => {
+  item.addEventListener('mousedown', evt => {
     closeModalOnBackdropClick(evt, item);
   });
 });
